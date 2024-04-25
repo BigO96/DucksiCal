@@ -11,6 +11,10 @@
 		E6E144C12BDA0D4F0092E7D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E144C02BDA0D4F0092E7D6 /* ContentView.swift */; };
 		E6E144C32BDA0D500092E7D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E144C22BDA0D500092E7D6 /* Assets.xcassets */; };
 		E6E144C62BDA0D500092E7D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E144C52BDA0D500092E7D6 /* Preview Assets.xcassets */; };
+		E6E144CD2BDA0F5B0092E7D6 /* DucksGamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E144CC2BDA0F5B0092E7D6 /* DucksGamesView.swift */; };
+		E6E144CF2BDA0F660092E7D6 /* TeamStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E144CE2BDA0F660092E7D6 /* TeamStruct.swift */; };
+		E6E144D12BDA0F6A0092E7D6 /* GetCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E144D02BDA0F6A0092E7D6 /* GetCal.swift */; };
+		E6E144D32BDA0FAB0092E7D6 /* TeamScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E144D22BDA0FAB0092E7D6 /* TeamScheduleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,11 @@
 		E6E144C02BDA0D4F0092E7D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E6E144C22BDA0D500092E7D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6E144C52BDA0D500092E7D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E6E144CC2BDA0F5B0092E7D6 /* DucksGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DucksGamesView.swift; sourceTree = "<group>"; };
+		E6E144CE2BDA0F660092E7D6 /* TeamStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStruct.swift; sourceTree = "<group>"; };
+		E6E144D02BDA0F6A0092E7D6 /* GetCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCal.swift; sourceTree = "<group>"; };
+		E6E144D22BDA0FAB0092E7D6 /* TeamScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScheduleView.swift; sourceTree = "<group>"; };
+		E6E144D42BDA31E60092E7D6 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +62,11 @@
 			children = (
 				E6E144BE2BDA0D4F0092E7D6 /* DucksiCalTestApp.swift */,
 				E6E144C02BDA0D4F0092E7D6 /* ContentView.swift */,
+				E6E144CC2BDA0F5B0092E7D6 /* DucksGamesView.swift */,
+				E6E144CE2BDA0F660092E7D6 /* TeamStruct.swift */,
+				E6E144D02BDA0F6A0092E7D6 /* GetCal.swift */,
+				E6E144D22BDA0FAB0092E7D6 /* TeamScheduleView.swift */,
+				E6E144D42BDA31E60092E7D6 /* MyPlayground.playground */,
 				E6E144C22BDA0D500092E7D6 /* Assets.xcassets */,
 				E6E144C42BDA0D500092E7D6 /* Preview Content */,
 			);
@@ -137,8 +151,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6E144CD2BDA0F5B0092E7D6 /* DucksGamesView.swift in Sources */,
 				E6E144C12BDA0D4F0092E7D6 /* ContentView.swift in Sources */,
 				E6E144BF2BDA0D4F0092E7D6 /* DucksiCalTestApp.swift in Sources */,
+				E6E144CF2BDA0F660092E7D6 /* TeamStruct.swift in Sources */,
+				E6E144D32BDA0FAB0092E7D6 /* TeamScheduleView.swift in Sources */,
+				E6E144D12BDA0F6A0092E7D6 /* GetCal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
