@@ -45,7 +45,7 @@ struct TeamScheduleView: View {
             guard let date1 = monthYearFormatter.date(from: $0), let date2 = monthYearFormatter.date(from: $1) else {
                 return false
             }
-            return date1 > date2
+            return date1 < date2
         }
         return sortedKeys
     }
@@ -66,6 +66,7 @@ let monthYearFormatter: DateFormatter = {
 
 struct TeamScheduleView_Previews: PreviewProvider {
     static var previews: some View {
-        TeamScheduleView(viewModel: EventViewModel(teamName: "Baseball"))
+        TeamScheduleView(viewModel: EventViewModel(teamName: "Football"))
     }
 }
+

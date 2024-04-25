@@ -26,7 +26,7 @@ class EventViewModel: ObservableObject {
         }
         loadEvents(from: urlString)
     }
-
+    
     func loadEvents(from urlString: String) {
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -50,11 +50,11 @@ class EventViewModel: ObservableObject {
         }
         task.resume()
     }
-
+    
     private func parseICalendarData(_ data: String) -> [SportsEvent] {
         var events = [SportsEvent]()
         var currentEvent: [String: String] = [:]
-
+        
         data.components(separatedBy: "\n").forEach { line in
             switch line {
             case let line where line.starts(with: "BEGIN:VEVENT"):
@@ -79,16 +79,37 @@ class EventViewModel: ObservableObject {
         guard let uid = dictionary["UID"],
               let summary = dictionary["SUMMARY"],
               let description = dictionary["DESCRIPTION"],
-              let location = dictionary["LOCATION"],
-              let dtStart = dictionary["DTSTART"],
-              let dtEnd = dictionary["DTEND"],
-              let startDate = DateFormatter.icalDateFormatter.date(from: dtStart),
-              let endDate = DateFormatter.icalDateFormatter.date(from: dtEnd) else {
+              let location = dictionary["LOCATION"] else {
             return nil
         }
-        
-        return SportsEvent(id: uid, summary: summary, start: startDate, end: endDate,
-                           description: description, location: location)
+
+        let dtStartKey = dictionary.keys.contains("DTSTART;VALUE=DATE") ? "DTSTART;VALUE=DATE" : "DTSTART"
+        let dtEndKey = dictionary.keys.contains("DTEND;VALUE=DATE") ? "DTEND;VALUE=DATE" : "DTEND"
+
+        guard let dtStart = dictionary[dtStartKey], let dtEnd = dictionary[dtEndKey] else {
+            return nil
+        }
+
+        let startDate: Date?
+        let endDate: Date?
+
+        if dtStartKey.contains(";VALUE=DATE") {
+            startDate = FunkyDateFormatter.icalDateFormatter.date(from: dtStart)
+        } else {
+            startDate = DateFormatter.icalDateFormatter.date(from: dtStart)
+        }
+
+        if dtEndKey.contains(";VALUE=DATE") {
+            endDate = FunkyDateFormatter.icalDateFormatter.date(from: dtEnd)
+        } else {
+            endDate = DateFormatter.icalDateFormatter.date(from: dtEnd)
+        }
+
+        guard let start = startDate, let end = endDate else {
+            return nil
+        }
+
+        return SportsEvent(id: uid, summary: summary, start: start, end: end, description: description, location: location)
     }
 }
 
@@ -96,6 +117,16 @@ extension DateFormatter {
     static let icalDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }()
+}
+
+struct FunkyDateFormatter {
+    static let icalDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return formatter
