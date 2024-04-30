@@ -13,9 +13,24 @@ class EventViewModel: ObservableObject {
     private let teamURLs: [String: String] = [
         "Football": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=3&schedule_id=2466",
         "Baseball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=1&schedule_id=2464",
-        "Basketball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=6&schedule_id=2461",
-        "TrackandField": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=11&schedule_id=2467",
-        "Other": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=11&schedule_id=2467"
+        "Mens Basketball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=6&schedule_id=2461",
+        "Mens Golf": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=5&schedule_id=2459",
+        "Mens Tennis": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=8&schedule_id=2453",
+
+        "Acrobatics & Tumbling": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=24&schedule_id=2465",
+        "Womens Basketball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=12&schedule_id=2457",
+        "Beach Volleyball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=13&schedule_id=2468",
+        "Womens Golf": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=15&schedule_id=2458",
+        "Lacrosse": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=17&schedule_id=2469",
+        "Soccer": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=18&schedule_id=2470",
+        "Softball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=10&schedule_id=2460",
+        "Womens Tennis": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=19&schedule_id=2456",
+        "Volleyball": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=21&schedule_id=2455",
+
+
+        "Track and Field": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=11&schedule_id=2467",
+        "Cross Country": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=2&schedule_id=2454",
+        "All": "https://admin.goducks.com/calendar.ashx/calendar.ics?sport_id=11&schedule_id=2467"
     ]
     
     init(teamName: String) {
@@ -77,12 +92,43 @@ class EventViewModel: ObservableObject {
 
     private func createSportsEvent(from dictionary: [String: String]) -> SportsEvent? {
         guard let uid = dictionary["UID"],
-              let summary = dictionary["SUMMARY"],
+              var summary = dictionary["SUMMARY"],
               let description = dictionary["DESCRIPTION"],
               let location = dictionary["LOCATION"] else {
             return nil
         }
 
+        summary = summary.replacingOccurrences(of: "Oregon, University of ", with: "")
+        summary = summary.replacingOccurrences(of: "Football  ", with: "")
+        summary = summary.replacingOccurrences(of: "Baseball  ", with: "")
+        summary = summary.replacingOccurrences(of: "Basketball  ", with: "")
+        summary = summary.replacingOccurrences(of: "Tennis  ", with: "")
+        summary = summary.replacingOccurrences(of: "Track and Field  ", with: "")
+        summary = summary.replacingOccurrences(of: "Cross Country  ", with: "")
+        summary = summary.replacingOccurrences(of: "Golf  ", with: "")
+        summary = summary.replacingOccurrences(of: "Men's ", with: "")
+        summary = summary.replacingOccurrences(of: "Womens's ", with: "")
+
+        summary = summary.components(separatedBy: "-").first?.trimmingCharacters(in: .whitespaces) ?? ""
+        
+        if location.contains("Eugene") {
+            summary = "V.S. \(summary)"
+        } else {
+            summary = "@ \(summary)"
+        }
+        
+        if summary.contains("[W]") {
+            summary = summary.replacingOccurrences(of: "[W] ", with: "")
+            summary = summary.appending(" [W]")
+        } else if summary.contains(" [N]") {
+            summary = summary.replacingOccurrences(of: "[N] ", with: "")
+            summary = summary.appending(" [N]")
+        } else if summary.contains(" [L]") {
+            summary = summary.replacingOccurrences(of: "[L] ", with: "")
+            summary = summary.appending(" [L]")
+        }
+        
+        
         let dtStartKey = dictionary.keys.contains("DTSTART;VALUE=DATE") ? "DTSTART;VALUE=DATE" : "DTSTART"
         let dtEndKey = dictionary.keys.contains("DTEND;VALUE=DATE") ? "DTEND;VALUE=DATE" : "DTEND"
 

@@ -28,9 +28,13 @@ struct TeamScheduleView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(event.summary)
-                                    .font(.title2)
+                                    .font(.headline)
+
                                 Text("Starts: \(event.start, formatter: itemFormatter)")
-                                    .font(.subheadline)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                    .foregroundColor(.secondary)
+
                             }
                             Spacer()
                         }
